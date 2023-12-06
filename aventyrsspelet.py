@@ -28,10 +28,10 @@ def level_up(hjälte):
 def strid(hjälte, aktivt_vapen):
     mosnter_lista = [
 
-        monster_skapare(rand.randint(3, 7) + hjälte.level, rand.randint(3, 10) * hjälte.level, "skelett"),
-        monster_skapare(rand.randint(5, 10) + hjälte.level, rand.randint(5, 12) * hjälte.level, "goblin"),
-        monster_skapare(rand.randint(8, 15) + hjälte.level, rand.randint(8, 18) * hjälte.level, "jätte"),
-        monster_skapare(rand.randint(12, 20) + hjälte.level, rand.randint(12, 25) * hjälte.level, "drake")
+        monster_skapare(rand.randint(3, 7) + hjälte.level, rand.randint(3, 6) * hjälte.level, "skelett"),
+        monster_skapare(rand.randint(5, 10) + hjälte.level, rand.randint(5, 10) * hjälte.level, "goblin"),
+        monster_skapare(rand.randint(8, 15) + hjälte.level, rand.randint(8, 15) * hjälte.level, "jätte"),
+        monster_skapare(rand.randint(12, 20) + hjälte.level, rand.randint(12, 20) * hjälte.level, "drake")
 
     ]
 
