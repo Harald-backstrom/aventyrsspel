@@ -136,7 +136,7 @@ def skapa_föremål():
 def main():
     inventory = []
     hjälte = spelar_skapare(10, rand.randint(3, 6), inventory, 1, 0)
-    aktivt_vapen = None  # Skapa en variabel för det aktiva vapnet som spelaren håller i
+    aktivt_vapen = None
 
     while hjälte.hp >= 0:
         print(
@@ -152,8 +152,8 @@ def main():
 
         if val == "1":
             if rand.randint(0, 2) == 0:
-                if aktivt_vapen:  # Kolla om spelaren har ett aktivt vapen
-                    hjälte = strid(hjälte, aktivt_vapen)  # Skicka med det aktiva vapnet till stridsfunktionen
+                if aktivt_vapen:
+                    hjälte = strid(hjälte, aktivt_vapen)
                 else:
                     print("Du har inget aktivt vapen. Gå till inventory för att välja ett.")
             elif rand.randint(0, 2) == 1:
@@ -169,10 +169,10 @@ def main():
 
             vald_sak = input("Välj ett vapen att hålla i (skriv numret bredvid vapnet eller '0' för att återgå): ")
             if vald_sak.isdigit() and 0 < int(vald_sak) <= len(inventory):
-                aktivt_vapen = inventory[int(vald_sak) - 1]  # Välj det valda vapnet som det aktiva vapnet
+                aktivt_vapen = inventory[int(vald_sak) - 1]
                 print(f"Du håller nu i {aktivt_vapen.namn}")
             elif vald_sak == '0':
-                aktivt_vapen = None  # Återgå till att inte hålla något vapen
+                aktivt_vapen = None
                 print("Du håller inte i något vapen.")
             else:
                 print("Ogiltigt val. Återgår till huvudmenyn.")
