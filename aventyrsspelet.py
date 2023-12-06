@@ -42,9 +42,9 @@ def strid(hjälte, aktivt_vapen):
         total_styrka += aktivt_vapen.styrka_bonus
 
     print(f"du möter en {monster.namn} som har {monster.styrka} styrka")
-    print(f"du har {hjälte.styrka} styrka och {hjälte.hp} hp kvar och du får {total_styrka - hjälte.styrka} styrka från dina vapen")
+    print(f"du har {hjälte.styrka} styrka och {hjälte.hp} hp kvar och du får {total_styrka - hjälte.styrka} styrka från ditt vapen")
     if total_styrka >= monster.styrka:
-        print("du vann")
+        print("du vann, du fick 2 xp")
         hjälte.exp +=2
         if hjälte.exp >= 10:
             level_up(hjälte)
