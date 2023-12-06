@@ -13,7 +13,6 @@ class monster_skapare:
         self.namn = namn
         self.hp = hp
         self.styrka = styrka
-        self.namn = namn
 
 class föremål:
     def __init__(self, namn, styrka_bonus):
@@ -26,7 +25,7 @@ def level_up(hjälte):
     hjälte.level += 1
     print(f"Du har gått upp till level {hjälte.level} och din styrka har ökat! Din styrka är nu {hjälte.styrka}.")
 
-def strid(hjälte):
+def strid(hjälte, aktivt_vapen):
     mosnter_lista = [
 
         monster_skapare(rand.randint(3, 7) + hjälte.level, rand.randint(3, 10) * hjälte.level, "skelett"),
@@ -39,8 +38,8 @@ def strid(hjälte):
     monster = rand.choice(mosnter_lista)
     total_styrka = hjälte.styrka
 
-    for sak in hjälte.inventory:
-        total_styrka += sak.styrka_bonus
+    if aktivt_vapen:
+        total_styrka += aktivt_vapen.styrka_bonus
 
     print(f"du möter en {monster.namn} som har {monster.styrka} styrka")
     print(f"du har {hjälte.styrka} styrka och {hjälte.hp} hp kvar och du får {total_styrka - hjälte.styrka} styrka från dina vapen")
@@ -62,7 +61,7 @@ def rum_med_kista(inventory):
         print(f"innuti kistan hittar du {föremål.namn}")
         inventory.append(föremål)
     else:
-        print("ditt invetory är fullt du fick inget")
+        print("ditt invetory är fullt, du fick inget")
     return inventory
 
 def slumpad_labyrint(storlek):
@@ -84,7 +83,7 @@ def labyrint(hjälte):
     nuvarande_position = [0, 0]
     mål_position = [storlek - 1, storlek - 1]
 
-    print("Välkommen till den mindre slumpade labyrinten! Din uppgift är att nå målet utan att hamna i fällorna.")
+    print("Välkommen till labyrinten! Din uppgift är att nå målet utan att hamna i fällorna.")
     print("Använd 'vänster', 'höger', 'upp' och 'ner' för att navigera.")
 
     while True:
@@ -135,39 +134,53 @@ def skapa_föremål():
     return föremål(rand.choice(föremål_lista), rand.randint(1,4))
 
 def main():
-    
     inventory = []
-    hjälte = spelar_skapare(10,rand.randint(3,6),inventory, 1, 0)
+    hjälte = spelar_skapare(10, rand.randint(3, 6), inventory, 1, 0)
+    aktivt_vapen = None  # Skapa en variabel för det aktiva vapnet som spelaren håller i
 
-    while hjälte.hp >= 0:        
+    while hjälte.hp >= 0:
         print(
             """
-
             Vad vill du göra?
-            1. gå genom dörr
+            1. Gå genom dörr
             2. Kolla inventory
             3. Kolla stats
-            
-            """)
-        
+            """
+        )
+
         val = input("")
 
         if val == "1":
-            if rand.randint(0,2) == 0:
-                hjälte = strid(hjälte)
-            elif rand.randint(0,2) == 1:
-                rum_med_kista(inventory)
-            elif rand.randint(0,2) == 2:
+            if rand.randint(0, 2) == 0:
+                if aktivt_vapen:  # Kolla om spelaren har ett aktivt vapen
+                    hjälte = strid(hjälte, aktivt_vapen)  # Skicka med det aktiva vapnet till stridsfunktionen
+                else:
+                    print("Du har inget aktivt vapen. Gå till inventory för att välja ett.")
+            elif rand.randint(0, 2) == 1:
+                inventory = rum_med_kista(inventory)
+            elif rand.randint(0, 2) == 2:
                 labyrint(hjälte)
             else:
-                print("det var inget i rummet, din lilla råtta")
+                print("Det var inget i rummet, din lilla råtta")
         elif val == "2":
-            for sak in inventory:
-                print(f"{sak.namn} som ger dig {sak.styrka_bonus} styrka")
+            print("Ditt inventory:")
+            for i, sak in enumerate(inventory):
+                print(f"{i + 1}. {sak.namn} som ger dig {sak.styrka_bonus} styrka")
+
+            vald_sak = input("Välj ett vapen att hålla i (skriv numret bredvid vapnet eller '0' för att återgå): ")
+            if vald_sak.isdigit() and 0 < int(vald_sak) <= len(inventory):
+                aktivt_vapen = inventory[int(vald_sak) - 1]  # Välj det valda vapnet som det aktiva vapnet
+                print(f"Du håller nu i {aktivt_vapen.namn}")
+            elif vald_sak == '0':
+                aktivt_vapen = None  # Återgå till att inte hålla något vapen
+                print("Du håller inte i något vapen.")
+            else:
+                print("Ogiltigt val. Återgår till huvudmenyn.")
         elif val == "3":
-            print(f"du har {hjälte.styrka} styrka och {hjälte.hp} hp och din level är {hjälte.level}")
+            print(f"Du har {hjälte.styrka} styrka och {hjälte.hp} hp och din level är {hjälte.level}")
         else:
             print("Välj 1, 2 eller 3!")
-            
-    print("du förlorade, din lilla råtta")
+
+    print("Du förlorade, din lilla råtta")
+
 main()
