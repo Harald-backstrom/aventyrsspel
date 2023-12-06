@@ -16,14 +16,12 @@ class monster_skapare:
         self.namn = namn
 
 class föremål:
-    # Klass för föremål
     def __init__(self, namn, styrka_bonus):
         self.namn = namn
         self.styrka_bonus = styrka_bonus
 
 
 def level_up(hjälte):
-    #Levlar upp hjälte
     hjälte.styrka += 1
     hjälte.level += 1
     print(f"Du har gått upp till level {hjälte.level} och din styrka har ökat! Din styrka är nu {hjälte.styrka}.")
