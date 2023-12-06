@@ -16,6 +16,7 @@ class monster_skapare:
         self.namn = namn
 
 class föremål:
+    # Klass för föremål
     def __init__(self, namn, styrka_bonus):
         self.namn = namn
         self.styrka_bonus = styrka_bonus
