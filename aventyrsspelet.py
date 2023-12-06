@@ -22,6 +22,7 @@ class föremål:
 
 
 def level_up(hjälte):
+    #Levlar upp hjälte
     hjälte.styrka += 1
     hjälte.level += 1
     print(f"Du har gått upp till level {hjälte.level} och din styrka har ökat! Din styrka är nu {hjälte.styrka}.")
