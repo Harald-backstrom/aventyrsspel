@@ -1,6 +1,5 @@
 import random as rand
 
-
 class spelar_skapare:
     def __init__(self, hp, styrka,inventory,level,exp):
         self.hp = hp
@@ -8,7 +7,6 @@ class spelar_skapare:
         self.inventory = inventory
         self.level = level
         self.exp = exp
-
 
 class monster_skapare:
     def __init__(self, hp, styrka, namn):
@@ -22,9 +20,6 @@ class föremål:
         self.namn = namn
         self.styrka_bonus = styrka_bonus
 
-
-
-
 def level_up(hjälte):
     hjälte.styrka += 1
     hjälte.level += 1
@@ -33,24 +28,16 @@ def level_up(hjälte):
 
 def strid(hjälte, aktivt_vapen):
     mosnter_lista = [
-
-
         monster_skapare(rand.randint(3, 7) + hjälte.level, rand.randint(3, 6) * hjälte.level, "skelett"),
         monster_skapare(rand.randint(5, 10) + hjälte.level, rand.randint(5, 10) * hjälte.level, "goblin"),
         monster_skapare(rand.randint(8, 15) + hjälte.level, rand.randint(8, 15) * hjälte.level, "jätte"),
         monster_skapare(rand.randint(12, 20) + hjälte.level, rand.randint(12, 20) * hjälte.level, "drake")
-
-
     ]
-
-
     monster = rand.choice(mosnter_lista)
     total_styrka = hjälte.styrka
 
-
     if aktivt_vapen:
         total_styrka += aktivt_vapen.styrka_bonus
-
 
     print(f"du möter en {monster.namn} som har {monster.styrka} styrka")
     print(f"du har {hjälte.styrka} styrka och {hjälte.hp} hp kvar och du får {total_styrka - hjälte.styrka} styrka från ditt vapen")
@@ -65,7 +52,6 @@ def strid(hjälte, aktivt_vapen):
         hjälte.hp -=1
     return hjälte
 
-
 def rum_med_kista(inventory):
     if len(inventory) < 7:
         föremål = skapa_föremål()
@@ -75,7 +61,6 @@ def rum_med_kista(inventory):
     else:
         print("ditt invetory är fullt, du fick inget")
     return inventory
-
 
 def slumpad_labyrint(storlek):
     labyrint_karta = []
@@ -89,19 +74,15 @@ def slumpad_labyrint(storlek):
     labyrint_karta[storlek - 1][storlek - 1] = "Mål"
     return labyrint_karta
 
-
 def labyrint(hjälte):
     storlek = 4
     labyrint_karta = slumpad_labyrint(storlek)
 
-
     nuvarande_position = [0, 0]
     mål_position = [storlek - 1, storlek - 1]
 
-
     print("Välkommen till labyrinten! Din uppgift är att nå målet utan att hamna i fällorna.")
     print("Använd 'vänster', 'höger', 'upp' och 'ner' för att navigera.")
-
 
     while True:
         for i in range(storlek):
@@ -118,9 +99,7 @@ def labyrint(hjälte):
             hjälte.exp +=2
             return hjälte
 
-
         val = input("Välj riktning ('vänster', 'höger', 'upp', 'ner'): ")
-
 
         if val == 'vänster':
             if nuvarande_position[1] > 0:
@@ -145,7 +124,6 @@ def labyrint(hjälte):
         else:
             print("Ogiltigt kommando. Försök igen.")
 
-
         if labyrint_karta[nuvarande_position[0]][nuvarande_position[1]] == "Fälla":
             print("Du har hamnat i en fälla! du förlorar 1 hp")
             hjälte.hp -=1
@@ -158,7 +136,7 @@ def skapa_föremål():
 
 def main():
     inventory = []
-    hjälte = spelar_skapare(100, rand.randint(3, 6), inventory, 1, 0)
+    hjälte = spelar_skapare(10, rand.randint(3, 6), inventory, 1, 0)
     aktivt_vapen = []
 
 
