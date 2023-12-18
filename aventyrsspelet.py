@@ -7,6 +7,10 @@ class spelar_skapare:
         self.inventory = inventory
         self.level = level
         self.exp = exp
+    def level_up(self):
+        self.styrka += 1
+        self.level += 1
+        print(f"Du har gått upp till level {self.level} och din styrka har ökat! Din styrka är nu {self.styrka}.")
 
 class monster_skapare:
     def __init__(self, hp, styrka, namn):
@@ -19,12 +23,6 @@ class föremål:
     def __init__(self, namn, styrka_bonus):
         self.namn = namn
         self.styrka_bonus = styrka_bonus
-
-def level_up(hjälte):
-    hjälte.styrka += 1
-    hjälte.level += 1
-    print(f"Du har gått upp till level {hjälte.level} och din styrka har ökat! Din styrka är nu {hjälte.styrka}.")
-
 
 def strid(hjälte, aktivt_vapen):
     mosnter_lista = [
@@ -45,7 +43,7 @@ def strid(hjälte, aktivt_vapen):
         print("du vann, du fick 2 xp")
         hjälte.exp +=2
         if hjälte.exp >= 10:
-            level_up(hjälte)
+            hjälte.level_up()
             hjälte.exp -= 10
     else:
         print("du förlorade")
@@ -97,6 +95,9 @@ def labyrint(hjälte):
         if nuvarande_position == mål_position:
             print("Grattis! Du har nått målet och du fick 2 xp")
             hjälte.exp +=2
+            if hjälte.exp >= 10:
+                hjälte.level_up()
+                hjälte.exp -= 10
             return hjälte
 
         val = input("Välj riktning ('vänster', 'höger', 'upp', 'ner'): ")
