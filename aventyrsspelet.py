@@ -28,10 +28,10 @@ def level_up(hjälte):
 
 def strid(hjälte, aktivt_vapen):
     mosnter_lista = [
-        monster_skapare(rand.randint(3, 7) + hjälte.level, rand.randint(3, 6) * hjälte.level, "skelett"),
-        monster_skapare(rand.randint(5, 10) + hjälte.level, rand.randint(5, 10) * hjälte.level, "goblin"),
-        monster_skapare(rand.randint(8, 15) + hjälte.level, rand.randint(8, 15) * hjälte.level, "jätte"),
-        monster_skapare(rand.randint(12, 20) + hjälte.level, rand.randint(12, 20) * hjälte.level, "drake")
+        monster_skapare(rand.randint(3, 7) + hjälte.level, rand.randint(3, 6) + (hjälte.level * 2), "skelett"),
+        monster_skapare(rand.randint(5, 10) + hjälte.level, rand.randint(5, 10) + (hjälte.level * 2), "goblin"),
+        monster_skapare(rand.randint(8, 15) + hjälte.level, rand.randint(8, 15) + (hjälte.level * 2), "jätte"),
+        monster_skapare(rand.randint(12, 20) + hjälte.level, rand.randint(12, 20) + (hjälte.level * 2), "drake")
     ]
     monster = rand.choice(mosnter_lista)
     total_styrka = hjälte.styrka
@@ -168,10 +168,8 @@ def main():
             for i, sak in enumerate(inventory):
                 print(f"{i + 1}. {sak.namn} som ger dig {sak.styrka_bonus} styrka")
 
-
             vald_sak = input("""Välj ett vapen att hålla i (skriv numret bredvid vapnet eller '0' för att återgå),
 eller 'radera' för att ta bort ett föremål: """)
-
 
             if vald_sak.isdigit() and 0 < int(vald_sak) <= len(inventory):
                 aktivt_vapen = inventory[int(vald_sak) - 1]
